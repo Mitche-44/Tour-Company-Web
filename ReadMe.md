@@ -2,7 +2,7 @@
 ##  Tour-Company-Web CLI Application
 
 **Tour-Company-Web** is a Python command-line interface (CLI) application designed to efficiently manage an ecotourism company’s operations. The system allows users to create, read, update, and delete records related to tour packages and customer bookings. It uses SQLAlchemy ORM for database interactions and Alembic for handling schema migrations, following best practices for clean, modular, and maintainable code architecture. This tool helps streamline booking management and tour package administration for an ecotourism business.
----
+
 
 ##  Project Structure
 
