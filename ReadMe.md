@@ -1,8 +1,7 @@
 
 ##  Tour-Company-Web CLI Application
 
-**Tour-Company-Web** is a command-line interface (CLI) application built in Python to help manage an ecotourism business. The system allows you to oversee tours, tour companies, customers, tour guides, and bookings with full CRUD operations. This project uses SQLAlchemy ORM and Alembic for database handling and follows clean architecture and modular best practices.
-
+**Tour-Company-Web** is a Python command-line interface (CLI) application designed to efficiently manage an ecotourism company’s operations. The system allows users to create, read, update, and delete records related to tour packages and customer bookings. It uses SQLAlchemy ORM for database interactions and Alembic for handling schema migrations, following best practices for clean, modular, and maintainable code architecture. This tool helps streamline booking management and tour package administration for an ecotourism business.
 ---
 
 ##  Project Structure
@@ -65,6 +64,9 @@ cd Tour-Company-Web
 ```
 pipenv install
 
+pipenv install SQLAlchemy
+
+
 pipenv shell
 ```
 ### 3.Install Required Dependencies
@@ -118,6 +120,7 @@ You’ll see a menu like:
 ##  Database Schema
 
 You can view the full database diagram here:  
+
 🔗 [View on dbdiagram.io](https://dbdiagram.io/d/Tour-company-diagram-683357a5b9f7446da311d2f4)
 
 > This ER diagram visualizes the relationship between `TourPackage` and `Booking` tables, including all relevant fields and foreign key associations.
@@ -145,7 +148,7 @@ You can view the full database diagram here:
 | tour\_package\_id  | Integer  | Foreign key → TourPackage.id  |
 | created\_at        | DateTime | Booking creation timestamp    |
 
--
+
 
 ## Learning Objectives Met
 - Designed and built a real-world business CLI application
