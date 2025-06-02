@@ -1,62 +1,28 @@
-
-from sqlalchemy import Column, Integer, String, ForeignKey, Date, Table
+from sqlalchemy import Column, Integer, String, Text, DECIMAL, DateTime, ForeignKey
 from sqlalchemy.orm import relationship
+from datetime import datetime
 from database.engine import Base
 
-# Many-to-many association
-association_table = Table(
-    "tour_tour_guides", Base.metadata,
-    Column("tour_id", Integer, ForeignKey("tours.id")),
-    Column("guide_id", Integer, ForeignKey("tour_guides.id"))
-)
-
-class TourCompany(Base):
-    __tablename__ = "tour_companies"
+class TourPackage(Base):
+    __tablename__ = "tour_packages"
 
     id = Column(Integer, primary_key=True)
-    name = Column(String, unique=True, nullable=False)
-    address = Column(String)
+    destination = Column(String, nullable=False)
+    price = Column(DECIMAL, nullable=False)
+    duration = Column(Integer, nullable=False)
+    description = Column(Text)
+    created_at = Column(DateTime, default=datetime.utcnow)
 
-    tours = relationship("Tour", back_populates="company")
-
-class Tour(Base):
-    __tablename__ = "tours"
-
-    id = Column(Integer, primary_key=True)
-    title = Column(String, nullable=False)
-    description = Column(String)
-    company_id = Column(Integer, ForeignKey("tour_companies.id"))
-
-    company = relationship("TourCompany", back_populates="tours")
-    bookings = relationship("Booking", back_populates="tour")
-    guides = relationship("TourGuide", secondary=association_table, back_populates="tours")
-
-class Customer(Base):
-    __tablename__ = "customers"
-
-    id = Column(Integer, primary_key=True)
-    name = Column(String, nullable=False)
-    email = Column(String, unique=True)
-
-    bookings = relationship("Booking", back_populates="customer")
+    bookings = relationship("Booking", back_populates="tour_package")
 
 class Booking(Base):
     __tablename__ = "bookings"
 
     id = Column(Integer, primary_key=True)
-    customer_id = Column(Integer, ForeignKey("customers.id"))
-    tour_id = Column(Integer, ForeignKey("tours.id"))
-    booking_date = Column(Date)
+    customer_name = Column(String, nullable=False)
+    email = Column(String, nullable=False)
+    number_of_people = Column(Integer, nullable=False)
+    tour_package_id = Column(Integer, ForeignKey("tour_packages.id"))
+    created_at = Column(DateTime, default=datetime.utcnow)
 
-    customer = relationship("Customer", back_populates="bookings")
-    tour = relationship("Tour", back_populates="bookings")
-
-class TourGuide(Base):
-    __tablename__ = "tour_guides"
-
-    id = Column(Integer, primary_key=True)
-    name = Column(String, nullable=False)
-    expertise = Column(String)
-
-    tours = relationship("Tour", secondary=association_table, back_populates="guides")
-
+    tour_package = relationship("TourPackage", back_populates="bookings")

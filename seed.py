@@ -1,27 +1,27 @@
 
-from database.engine import Session, engine
-from models import Base, TourCompany, Tour, Customer, Booking, TourGuide
-from datetime import date
+from database.engine import engine, Session
+from models import Base, TourPackage, Booking
+from datetime import datetime
 
 Base.metadata.create_all(bind=engine)
-# add a session instance
+
 session = Session()
 
-company = TourCompany(name="Ace Ecotours", address="Kilimani")
-session.add(company)
+# Seed TourPackages
+tour1 = TourPackage(destination="Ngong Hills", price=50.0, duration=1,
+                    description="Half-day hike across scenic hills.")
 
-guide = TourGuide(name="Peter Oyugi", expertise="Animal spotting")
-session.add(guide)
+tour2 = TourPackage(destination="Maasai Mara Safari", price=300.0, duration=3,
+                    description="3-day guided safari through Maasai Mara reserve.")
 
-tour = Tour(title="Day trip to Nairobi National Park", description="Explore the Giraffe Centre, Elephant Orphanage and visit the Nairobi National Park", company=company)
-tour.guides.append(guide)
-session.add(tour)
-
-customer = Customer(name="Mitchelle Ngetich", email="mitchellngetich24@gmail.com")
-session.add(customer)
-
-booking = Booking(customer=customer, tour=tour, booking_date=date.today())
-session.add(booking)
-
+session.add_all([tour1, tour2])
 session.commit()
 
+# Seed Bookings
+booking1 = Booking(customer_name="Mitchelle Ngetich", email="mitchellngetich25@gmail.com", number_of_people=2, tour_package_id=tour1.id)
+
+booking2 = Booking(customer_name="Charity Jameson", email="charityjameson@gmail.com", number_of_people=4, tour_package_id=tour2.id)
+
+session.add_all([booking1, booking2])
+session.commit()
+session.close()
