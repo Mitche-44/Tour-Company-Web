@@ -100,11 +100,15 @@ python seed.py
 python run.py
 
 You’ll see a menu like:
-=== Ace Ecotours ===
-1. Manage Tours
-2. Manage Tour Guides
-3. Manage Bookings
-4. Exit
+=== Ecotours CLI ===
+1. List Tour Packages
+2. Add Tour Package
+3. Delete Tour Package
+4. List Bookings
+5. Add Booking
+6. Delete Booking
+7. Update Booking
+8. Exit
 ```
 
 ## Learning Objectives Met
