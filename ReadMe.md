@@ -8,31 +8,16 @@
 ##  Project Structure
 
 ```
-
-tour\_company\_web/
-├── cli/
-│   ├── main.py              # Main CLI interaction
-│   ├── tour\_menu.py         # Tour-related functions
-│   ├── guide\_menu.py        # Guide management
-│   └── booking\_menu.py      # Booking operations
-│
-├── models/
-│   ├── **init**.py
-│   ├── tour\_company.py      # TourCompany model
-│   ├── tour.py              # Tour model
-│   ├── customer.py          # Customer model
-│   ├── booking.py           # Booking model
-│   ├── tour\_guide.py        # TourGuide model
-│   └── tour\_tour\_guide.py   # Many-to-many association
-│
-├── database/
-│   └── engine.py            # DB engine and session
-│
-├── seed.py                  # Populate DB with initial data
-├── run.py                   # App entry point
-├── Pipfile                  # Pipenv dependencies
-├── alembic/                 # Migration folder
-└── README.md
+ tour_company_web/
+ ├── database/
+ │   └── engine.py          # SQLAlchemy engine and Session setup
+ ├── models.py              # All SQLAlchemy ORM models in one file
+ ├── seed.py                # Populate the database with initial data
+ ├── run.py                 # Main CLI interface for managing the system
+ |__tour_company.db
+ 
+ ├── Pipfile                # Pipenv dependencies
+ ├── alembic/               # Database migrations └── README.md              # Project description and usage
 
 ````
 
@@ -55,7 +40,7 @@ tour\_company\_web/
 
 ##  Technologies Used
 
-- Python 3.11+
+- Python
 - SQLAlchemy
 - Alembic (for schema migrations)
 - Pipenv (for environment management)
@@ -65,38 +50,61 @@ tour\_company\_web/
 ##  Setup Instructions
 
 ### 1. Clone the Repository
-
+```
 
 git clone https://github.com/Mitche-44/Tour-Company-Web
 
 cd Tour-Company-Web
-
+```
 ### 2.Create and Activate Virtual Environment
+```
 pipenv install
+
 pipenv shell
+```
+### 3.Install Required Dependencies
+If using Pipenv, dependencies should be installed automatically.
+If using pip, install the core packages manually:
 
-### 3. Run Database Migrations
+```
+pip install alembic
 
+alembic init alembic/ alembic init migrations
+
+alembic revision --autogenerate -m "Initial migration"      #This  will create a table
+
+```
+### 4. Run Database Migrations
+```
 alembic upgrade head
 
 Or, if initializing manually:
 
 python
+
 from models import Base
 from database.engine import engine
 
 Base.metadata.create_all(engine)
+```
 
-
-### 4. Seed the Database (Optional)
-
+### 5. Seed the Database 
+```
 python seed.py
+```
 
+### 6. Launch the CLI Application
 
-### 5. Launch the CLI Application
-
-
+```
 python run.py
+
+You’ll see a menu like:
+=== Ace Ecotours ===
+1. Manage Tours
+2. Manage Tour Guides
+3. Manage Bookings
+4. Exit
+```
 
 ## Learning Objectives Met
 
