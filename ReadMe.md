@@ -17,7 +17,8 @@
  |__tour_company.db
  
  ├── Pipfile                # Pipenv dependencies
- ├── alembic/               # Database migrations └── README.md              # Project description and usage
+ ├── alembic/               # Database migrations 
+ └── README.md              # Project description and usage
 
 ````
 
