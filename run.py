@@ -1,6 +1,9 @@
+
 from database.engine import Session
 from models import TourPackage, Booking
 from datetime import datetime
+
+
 
 def list_packages(session):
     print("\n-- Tour Packages --")
@@ -15,7 +18,7 @@ def add_package(session):
     package = TourPackage(destination=destination, price=price, duration=duration, description=description)
     session.add(package)
     session.commit()
-    print("Tour package added.")
+    print("--------Congrats! You have added a Tour Package-----")
 
 def delete_package(session):
     list_packages(session)
@@ -27,11 +30,32 @@ def delete_package(session):
         print("Deleted.")
     else:
         print("Tour package not found.")
+        
 
 def list_bookings(session):
-    print("\n-- Bookings --")
-    for b in session.query(Booking).all():
-        print(f"{b.id}: {b.customer_name} ({b.email}) - {b.number_of_people} people for {b.tour_package.destination}")
+    print("\n------------------Bookings Available----------------")
+    bookings = session.query(Booking).all()
+    
+    if not bookings:
+        print("------------\n Sorry!!! No bookings found.------------")
+        return
+
+    for booking in bookings:
+        print("---------------------------------------------------")
+        print(f"id: {booking.id}")
+        print(f"name: {booking.customer_name}")
+        print(f"email: {booking.email}")
+        print(f"number_of_people: {booking.number_of_people}")
+        print(f"tour_package_id: {booking.tour_package_id}")
+        if booking.tour_package:
+            print(f"destination: {booking.tour_package.destination}")
+        else:
+            print("destination: N/A (no package linked)")
+        print(f"created_at: {booking.created_at}")
+       
+
+    
+
 
 def add_booking(session):
     list_packages(session)
@@ -110,7 +134,9 @@ def main():
             session.close()
             break
         else:
-            print("Invalid choice. Try again.")
+            print("Oops! Invalid choice. Try again.")
 
 if __name__ == "__main__":
     main()
+   
+    
