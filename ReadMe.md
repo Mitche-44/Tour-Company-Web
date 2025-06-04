@@ -106,7 +106,7 @@ python seed.py
 python run.py
 
 You’ll see a menu like:
-=== Ecotours CLI ===
+===Welcome to Ace Ecotours CLI ===
 1. List Tour Packages
 2. Add Tour Package
 3. Delete Tour Package

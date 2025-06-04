@@ -129,24 +129,23 @@ def delete_booking(session):
     else:
         print("\nBooking not found.")
 
-
 def update_booking(session):
     print("\n--- Update a Booking ---")
     list_bookings(session)
 
     try:
-        booking_id = int(input("Booking ID to update: "))
+        booking_id = int(input("Booking ID to update: ").strip())
     except ValueError:
         print("Invalid input! Please enter a numeric booking ID.")
         return
 
     booking = session.get(Booking, booking_id)
     if booking:
-        new_name = input(f"New name (current: {booking.customer_name}): ") or booking.customer_name
-        new_email = input(f"New email (current: {booking.email}): ") or booking.email
+        new_name = input(f"New name (current: {booking.customer_name}): ").strip() or booking.customer_name
+        new_email = input(f"New email (current: {booking.email}): ").strip() or booking.email
         
         try:
-            new_number = input(f"New number of people (current: {booking.number_of_people}): ")
+            new_number = input(f"New number of people (current: {booking.number_of_people}): ").strip()
             if new_number:
                 new_number_of_people = int(new_number)
             else:
@@ -163,6 +162,7 @@ def update_booking(session):
         print("Yes!! Booking updated.")
     else:
         print("---------------\n Unfortunately the Booking is not found.--------------------")
+
 
 
 def main():
